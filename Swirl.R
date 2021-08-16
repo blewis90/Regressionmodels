@@ -138,6 +138,43 @@ points(mean(x), mean(y), cex = 2, pch = 19) #big point of intersection
 
 
 
+#Swirl Residual variation
+
+# fit linear model
+fit <- lm(child ~ parent, galton)
+
+#calculate sum of squared residuals divided by the quantity (n-2), then take the square root
+sqrt(sum(fit$residuals^2) / (n - 2))
+
+#look at sigma of fit
+summary(fit)$sigma
+
+#square root of deviance(fit)/(n-2)
+sqrt(deviance(fit)/(n-2))
+#Total Variation = Residual Variation + Regression Variation
+#find the mean in children
+mu <- mean(children)
+
+# Total Variation of the data - sum of the squares of the centered childrens heights 
+sTot <- sum((galton$child - mu)^2)
+
+#sum of the squares of the residuals
+sRes <- deviance(fit)
+
+#Total Variation of the residuals
+1- sRes/sTot
+
+#same as 
+summary(fit)$r.squared
+
+#compute the square of the correlation of the galton data
+cor(galton$parent, galton$child)^2
+
+| We'll now summarize useful facts about R^2. It is the percentage of variation explained
+| by the regression model. As a percentage it is between 0 and 1. It also equals the
+| sample correlation squared. However, R^2 doesn't tell the whole story
+
+
 
 
 
